@@ -1,5 +1,5 @@
 const fs = require ('fs')
-const filename = './datos.json'
+const filename = './src/data/datos.json'
 
 class productManager {
 
@@ -81,39 +81,39 @@ class productManager {
 
 const manager = new productManager();
 
-console.log(manager.getProducts());
+module.exports = manager
+
+// manager.addProduct({
+//     title: "producto prueba",
+//     description:"Este es un producto prueba",
+//     price:200,
+//     thumbnail:"Sin imagen",
+//     code:"abc123",
+//     stock:25
+// })
+
+// manager.addProduct({
+//     title: "producto prueba2",
+//     description:"Este es un producto prueba2",
+//     price:2002,
+//     thumbnail:"Sin imagen2",
+//     code:"abc1232",
+//     stock:252
+// })
+
+// manager.addProduct({
+//     title: "producto prueba3",
+//     description:"Este es un producto prueba3",
+//     price:2003,
+//     thumbnail:"Sin imagen3",
+//     code:"abc12323",
+//     stock:2523
+// })
+
+// manager.getProductById(3)
+
+// manager.updateProduct(1, 'stock', 100)
+
+// console.log(manager.getProducts());
 
 
-
-manager.addProduct({
-    title: "producto prueba",
-    description:"Este es un producto prueba",
-    price:200,
-    thumbnail:"Sin imagen",
-    code:"abc123",
-    stock:25
-})
-
-manager.addProduct({
-    title: "producto prueba2",
-    description:"Este es un producto prueba2",
-    price:2002,
-    thumbnail:"Sin imagen2",
-    code:"abc1232",
-    stock:252
-})
-
-manager.addProduct({
-    title: "producto prueba3",
-    description:"Este es un producto prueba3",
-    price:2003,
-    thumbnail:"Sin imagen3",
-    code:"abc12323",
-    stock:2523
-})
-
-manager.getProductById(3)
-
-manager.updateProduct(1, 'stock', 100)
-
-manager.deleteProduct(1)
