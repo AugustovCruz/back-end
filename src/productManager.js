@@ -1,4 +1,4 @@
-const fs = require ('fs')
+import fs from 'node:fs'
 const filename = './src/data/datos.json'
 
 class productManager {
@@ -81,7 +81,7 @@ class productManager {
 
 const manager = new productManager();
 
-module.exports = manager
+export default manager
 
 // manager.addProduct({
 //     title: "producto prueba",

@@ -1,33 +1,18 @@
-const express = require ('express')
-const manager = require('./productManager')
+// const express = require ('express')
+import express from 'express' // ES MODULES
+// const manager = require ('./ProductManager.js')
+
+
+import productos from './routers/products.router.js'
+import cartRouter from './routers/carts.router.js'
+
+
 
 const app = express()
+
 app.use(express.json())
+app.use('/api/productos', productos )
+app.use('/api/carts', cartRouter)
 
-app.get('/', (req,res) => {
-    res.send(manager.getProducts())
-})
-
-app.get('/products', (req,res) => {
-    const limit = req.query.limit
-    const productos = manager.getProducts()
-    const limits = productos.filter( p => p.id <= limit )
-
-    if (!limit)  return res.send(productos)
-    res.send(limits)
-})
-
-
-app.get('/products/:pid', (req, res) => {
-    const id = req.params.pid
-    const productos = manager.getProducts()
-    const found = productos.find( p => p.id === +id )
-
-    if (!found) return res.send( {
-        code:404,
-        message: 'El producto no existe'
-    })
-    res.send(found)
-})
 
 app.listen (8080, () => console.log('Server up') )
