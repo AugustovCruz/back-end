@@ -25,7 +25,7 @@ router.post ('/',(req, res) => {
     const product = req.body
     const numFields = Object.keys(product).length 
     if ( numFields==8 && product.status == true) {
-        manager.addUpdateProduct(product.title, product.description, product.price, product.thumbnail, product.code, product.stock, product.status, product.category)
+        manager.addUpdateProduct(product)
         res.send ('Producto añadido')
     } else res.send ('Se necesita un status:true para añadir el producto, como tambien 8 campos ingresados: category & status')
 })
@@ -42,10 +42,13 @@ router.put('/:pid', (req, res) => {
 
 router.delete ('/:pid', (req, res) => {
     const id = req.params.pid
-    if (manager.getProductById(+id)) {
+    try {
         manager.deleteProduct(+id)
         res.send('producto eliminado')
-    } else return res.send(`producto con el ID: ${id} not found`)  
+    } catch (error) {
+        res.send(`producto con el ID: ${id} not found`)
+    }
+    
 })
 
 export default router

@@ -46,12 +46,13 @@ class productManager {
             ...product,
             id: this.id
         };
-        this.products.push(newProduct)
+        productos.push(newProduct)
         this.id++
-        await fs.writeFileSync(this.path, JSON.stringify(this.products, null,  '\t'))
+        await fs.writeFileSync(this.path, JSON.stringify(productos, null,  '\t'))
         console.log("Nuevo producto agregado", newProduct)
     }
 
+    //Actualizo valores de un producto del campo segun la key ingresada
     updateProduct (id, key, value ) {
         const productos = this.getProducts()
         // Busco el producto por ID
@@ -64,10 +65,39 @@ class productManager {
         } else console.log('No se encontraron los datos para actualizar')
     }
 
+    // Actualizo y creo el producto con los campos nuevos ingresados
+    async addUpdateProduct (product){
+        const productos = this.getProducts()
+        
+        if( !product.title || !product.description || !product.price || !product.thumbnail || !product.code | !product.stock || !product.status || !product.category ) {
+            console.log("Todos los campos son obligatorios2")
+            return
+        }
+
+        const existProduct = productos.find( p => p.code === product.code )
+
+        if (existProduct) {
+            console.log("El codigo de producto ya existe")
+            return
+        }
+        
+        const newProduct = {
+            ...product,
+            id:this.id++
+        };
+        
+        productos.push(newProduct)
+        
+        
+        await fs.writeFileSync(this.path, JSON.stringify(productos, null,  '\t'))
+        console.log("Nuevo producto agregado", newProduct)
+    }
+
     async deleteProduct (id)  {
         const productos= this.getProducts()
         // Busco el ID para luego poder borrarlo 
         const productoIndex = productos.findIndex( (item) => item.id === id )
+        console.log('DELETEPRODUCT',productoIndex)
         if (productoIndex === -1) return console.log('Error: No existe ningun elemento con ese ID')
         //Borro y actualizo en los archivos 
         productos.splice(productoIndex, 1)
